@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+    <link rel="stylesheet" href="assets/css/style.css">
+
+  <title>Crystal Game!</title>
+
+  <style type="text/css">
+
+ 
+   
+  </style>
+
+</head>
+<body>
+
+  <h1>Number to Guess: <span id="number-to-guess"></span></h1>
+  <p>Wins: <span id='winsDisplay'>0</span> Losses: <span id='lossesDisplay'>0</span></p>
+  <div id="crystals">
+
+ <img class="crystal-image" data-number="10"  src="assets/images/sapphire.jpg" alt="sapphire">
+ <img class="crystal-image" data-number="10" src="assets/images/pink.jpg" alt="pink">
+ <img class="crystal-image" data-number="10" src="assets/images/green.jpg" alt="green">
+ <img class="crystal-image" data-number="10" src="assets/images/diamond.jpg" alt="diamond">
+ 
+
+  <!-- JAVASCRIPT  -->
+  <!-- ========================================= -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript">
+     var wins =0;
+    var losses=0;
+    function generateRandomNumberBetween(lowRange, highRange){
+      return Math.floor(Math.random() * lowRange + highRange);
+    }
+    function assignRandomNumbers(){
+      $('.crystal-image').each(function(index, el){
+        $(el).attr('data-number', generateRandomNumberBetween(10,1));
+        console.log(el);
+      });
+    }
+    assignRandomNumbers();
+  var targetNumber = generateRandomNumberBetween(50, 50);
+  
+  $("#number-to-guess").text(targetNumber);
+
+  var counter = 0;
+  $(".crystal-image").on("click", function() {
+    counter += +$(this).attr('data-number');
+  console.log(counter);
+    alert("New score: " + counter);
+
+    if (counter === targetNumber) {
+      wins++;
+      $('#winsDisplay').text(wins);
+      alert("You win!");
+      //form.reset(); alert("reset");
+    }
+
+   
+
+    // Here we added an "else if" condition. If the user's counter ever exceeds the targetNumber...
+  
+      else if (counter > targetNumber){
+        losses++;
+        $('#lossesDisplay').text(losses);
+      // Then they are alerted with a loss.
+      alert("You lose!!");
+      //form.reset(); alert("reset");
+    }
+ 
+
+ 
+    // This is fine except the way our code is written every user will win first (when they hit 50).
+    // But will then lose immediately if they click again. Seems pointless right?
+    // To make this a game we need to create additional code to randomize the counter and targetScore.
+
+  });
+
+
+  </script>
+</body>
+</html>
